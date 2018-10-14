@@ -10,7 +10,7 @@ Android端末をお持ちの方はぜひアプリをダウンロードして評�
 
 - app
   - スマホアプリのコード
-  - Reac Native製
+  - React Native製
 - assets
   - 画像など
 - server
