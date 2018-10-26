@@ -3,14 +3,22 @@ TODO LIST
 全体
 	コンポーネント分割
 	Uploaderクラスの作成
-	Reduxの使用
+	Redux(or mobx)の使用
 	READMEの追加
+	Navigationの使用
 
 初期画面
 	imageの切れてるとこをなくす
 タイトル選択画面
 	選択肢を編集できるようにする
 	ヘルプメッセージの追加
+		<Icon
+			name='help'
+			color='#517fa4'
+			size={30}
+			containerStyle={{ marginBottom: 20 }}
+		// onPress
+		/>
 結果画面
 	amazon APIを使う
 	もう一度検索を修正
