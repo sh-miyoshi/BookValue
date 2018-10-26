@@ -13,6 +13,9 @@ TODO LIST
 	ヘルプメッセージの追加
 結果画面
 	amazon APIを使う
+	もう一度検索を修正
+		[]再検索
+		画像選定からやり直し
 
 
 CHANGE LOG
