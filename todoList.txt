@@ -2,7 +2,6 @@ TODO LIST
 
 全体
 	コンポーネント分割
-	Uploaderクラスの作成
 	Redux(or mobx)の使用
 	READMEの追加
 	Navigationの使用
@@ -11,14 +10,6 @@ TODO LIST
 	imageの切れてるとこをなくす
 タイトル選択画面
 	選択肢を編集できるようにする
-	ヘルプメッセージの追加
-		<Icon
-			name='help'
-			color='#517fa4'
-			size={30}
-			containerStyle={{ marginBottom: 20 }}
-		// onPress
-		/>
 結果画面
 	amazon APIを使う
 	もう一度検索を修正
@@ -35,5 +26,7 @@ CHANGE LOG
 	secret情報の削除
 	アプリのアイコン修正
 	retry時のバグフィックス
-
-
+- v0.3.0
+	LICENSEファイルの追加
+	Uploaderクラスの作成
+	ヘルプメッセージの追加

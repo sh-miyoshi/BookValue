@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { Image, View, Text, FlatList, WebView } from 'react-native';
+import { Image, View, Text, FlatList, WebView, Alert } from 'react-native';
 import { ImagePicker, Permissions } from 'expo';
-import { CheckBox, Button } from 'react-native-elements';
+import { CheckBox, Button, Icon } from 'react-native-elements';
 import { HyperLink } from './src/hyperLink';
 import { Error } from './src/error';
 import { Util } from './src/util';
@@ -9,7 +9,6 @@ import { Uploader } from './src/uploader';
 
 export default class Main extends Component {
   state = {
-    debug_mode: false,
     image: null,
     app_state: 0,
     titles: null,
@@ -74,6 +73,13 @@ export default class Main extends Component {
                 <Text style={styles.textStyle}>
                   正しい本のタイトルは？
                 </Text>
+                <Icon
+                  name='help'
+                  color='#517fa4'
+                  size={30}
+                  containerStyle={{ marginBottom: 20 }}
+                  onPress={() => Alert.alert("HELP!", "下のリストの中から正しい本のタイトルを選択してください。\nそのタイトルで評価を検索します。\nなお、複数選択した場合は選択した候補が連結されて検索されます。")}
+                />
               </View>
               <View style={{ height: 200 }}>
                 <FlatList
