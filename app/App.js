@@ -5,6 +5,7 @@ import { CheckBox, Button } from 'react-native-elements';
 import { HyperLink } from './src/hyperLink';
 import { Error } from './src/error';
 import { Util } from './src/util';
+import { Uploader } from './src/uploader';
 
 export default class Main extends Component {
   state = {
@@ -170,71 +171,19 @@ export default class Main extends Component {
       waiting_search: true
     });
 
-    let result = new Array()
-
-    if (this.state.debug_mode) {
-      result.push({ key: "タイトル1", index: 0 })
-      result.push({ key: "カイゼン・ジャーニー", index: 1 })
-      result.push({ key: "あああああああああああああああああああああああああいいいい", index: 2 })
-      this.state.checked[0] = false
-      this.state.checked[1] = false
-      this.state.checked[2] = false
-    } else {
-      let res = null;
-
-      image_type = Util.getImageExt(this.state.image)
-      if (!image_type) {
-        console.log("invalid image type: " + this.state.image)
-        return
-      }
-
-      const data = new FormData();
-      data.append('name', 'image')
-      data.append('image', {
-        uri: this.state.image,
-        name: 'image',
-        type: 'image/' + image_type,
-      })
-
-      try {
-        url = Util.getOcrServer()
-        let tres = await fetch(url, {
-          method: 'POST',
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'multipart/form-data;',
-          },
-          body: data
-        });
-        res = await tres.json();
-      } catch (error) {
-        this._errorExit(error.toString())
-        return
-      }
-
-      // any error is occured
-      if (res["err"]) {
-        this._errorExit(res["err"])
-        return
-      }
-
-      console.log(res);
-
-      res["titles"].forEach(function (element, index) {
-        result.push({
-          key: element,
-          index: index,
-        })
-      });
-
-      for (var i = 0; i < res["titles"].length; i++) {
-        this.state.checked[i] = false
-      }
+    let isDebug = false
+    let uploader = new Uploader(this.state.image, isDebug)
+    await uploader.send()
+    let [result, checked, error] = uploader.getResult()
+    if (error) {
+      this._errorExit(error)
+      return
     }
 
     this.setState({
       app_state: 1,
-      titles: result
+      titles: result.slice(),
+      checked: checked.slice()
     });
   }
 
