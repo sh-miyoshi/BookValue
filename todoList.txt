@@ -2,12 +2,13 @@ TODO LIST
 
 全体
 	コンポーネント分割
-	Redux(or mobx)の使用
 	READMEの追加
 	Navigationの使用
+	server側のコードを削除
 
 初期画面
 	imageの切れてるとこをなくす
+	timeoutの時間を設定
 タイトル選択画面
 	選択肢を編集できるようにする
 結果画面
@@ -30,3 +31,4 @@ CHANGE LOG
 	LICENSEファイルの追加
 	Uploaderクラスの作成
 	ヘルプメッセージの追加
+	Reduxを使用
