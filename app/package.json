@@ -1,6 +1,6 @@
 {
   "name": "bookvalue",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "private": true,
   "devDependencies": {
     "jest-expo": "~27.0.0",

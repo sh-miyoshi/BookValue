@@ -32,3 +32,5 @@ CHANGE LOG
 	Uploaderクラスの作成
 	ヘルプメッセージの追加
 	Reduxを使用
+- v0.3.1
+	バグ修正(debugモードの解除)

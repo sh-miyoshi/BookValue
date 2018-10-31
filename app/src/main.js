@@ -165,7 +165,7 @@ export class Main extends Component {
   _upload = async () => {
     this.props.searchStart()
 
-    let isDebug = true// debug
+    let isDebug = false
     let uploader = new Uploader(this.props.stores.image, isDebug)
     await uploader.send()
     let [result, checked, error] = uploader.getResult()
