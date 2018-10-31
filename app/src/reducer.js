@@ -36,7 +36,7 @@ export const stores = (state = initState, action) => {
       })
     case 'SEARCH_START':
       return Object.assign({}, state, {
-        waiting_search: action.true,
+        waiting_search: true,
       })
     default:
       return state
