@@ -1,4 +1,5 @@
-import { Util } from './util';
+import { OCR_SERVER_URL, SUBSCRIPTION_KEY } from "./env.secret"
+import { Util } from './util'
 
 export class Uploader {
   constructor(imageFile, isDebug) {
@@ -13,37 +14,61 @@ export class Uploader {
     if (this.isDebug) {
       this._debugSend()
     } else {
+      st = Date.now()
       let sendData = this._createSendData()
       if (this.error) {
         return
       }
+      end = Date.now()
+      console.log("-------------")
+      console.log(end - st)
+      st = end
 
       let res = null;
       try {
-        url = Util.getOcrServer()
+        url = OCR_SERVER_URL
         let tres = await fetch(url, {
           method: 'POST',
           headers: {
             'Accept': 'application/json',
-            'Content-Type': 'multipart/form-data;',
+            'Content-Type': "multipart/form-data",
+            'Ocp-Apim-Subscription-Key': SUBSCRIPTION_KEY
           },
           body: sendData
-        });
+        })
         res = await tres.json();
       } catch (error) {
         this.error = error.toString()
         return
       }
+      end = Date.now()
+      console.log(end - st)
+      st = end
 
-      // any error is occured
-      if (res["err"]) {
-        this.error = res["err"]
+      if (res.code) {
+        this.error = res.message
         return
       }
 
-      console.log(res);
+      titles = new Array()
+      res.regions.forEach(function (region) {
+        region.lines.forEach(function (line) {
+          word = ""
+          line.words.forEach(function (w) {
+            word += w.text
+          })
+          titles.push(word)
+        })
+      })
+      end = Date.now()
+      console.log(end - st)
+      st = end
 
-      this._makeResult(res["titles"])
+      this._makeResult(titles)
+      end = Date.now()
+      console.log(end - st)
+      st = end
+      console.log("-------------")
     }
   }
 
@@ -84,13 +109,13 @@ export class Uploader {
     }
 
     const data = new FormData();
-    data.append('name', 'image')
-    data.append('image', {
+    data.append('photo', {
       uri: this.imageFile,
-      name: 'image',
-      type: 'image/' + imageType,
-    })
+      name: `photo.${imageType}`,
+      type: `image/${imageType}`,
+    });
 
+    console.log(data)
     return data
   }
 }

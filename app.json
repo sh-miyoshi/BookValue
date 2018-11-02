@@ -1,11 +1,11 @@
 {
   "expo": {
     "name": "BookValue",
-    "icon": "icon.png",
+    "icon": "assets/icon.png",
     "sdkVersion": "27.0.0",
     "android": {
       "package": "com.smiyoshi.bookvalue",
-      "versionCode": 32
+      "versionCode": 40
     }
   }
 }

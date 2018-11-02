@@ -6,16 +6,6 @@ Android Storeにて公開している[BookValueアプリ](https://play.google.co
 Android端末をお持ちの方はぜひアプリをダウンロードして評価をしてください。  
 [expo](https://expo.io/) + [create react native app](https://github.com/react-community/create-react-native-app)によって作成しています。
 
-## フォルダ構成
-
-- app
-  - スマホアプリのコード
-  - React Native製
-- assets
-  - 画像など
-- server
-  - server側のコード
-
 ## インストール方法
 
 TODO
