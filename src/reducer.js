@@ -3,7 +3,6 @@ import { combineReducers } from 'redux'
 const initState = {
   image: null,
   titles: null,
-  checked: new Array(),
   search_title: "",
   error: null,
   waiting_search: false,
@@ -24,11 +23,6 @@ export const stores = (state = initState, action) => {
     case 'SET_TITLES':
       return Object.assign({}, state, {
         titles: action.titles.slice(),
-        checked: action.checked.slice(),
-      })
-    case 'SET_CHECKED':
-      return Object.assign({}, state, {
-        checked: action.checked.slice(),
       })
     case 'SET_SEARCH_TITLE':
       return Object.assign({}, state, {

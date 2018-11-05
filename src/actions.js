@@ -11,12 +11,6 @@ export const setError = (errMsg) => ({
 export const setTitles = (titles, checked) => ({
   type: 'SET_TITLES',
   titles,
-  checked
-})
-
-export const setChecked = (checked) => ({
-  type: 'SET_CHECKED',
-  checked
 })
 
 export const setSearchTitle = (title) => ({
