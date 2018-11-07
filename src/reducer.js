@@ -1,24 +1,16 @@
 import { combineReducers } from 'redux'
 
 const initState = {
-  image: null,
   titles: null,
   search_title: "",
   error: null,
-  waiting_search: false,
 }
 
 export const stores = (state = initState, action) => {
   switch (action.type) {
-    case 'SET_IMAGE':
-      return Object.assign({}, state, {
-        error: null,
-        image: action.image
-      })
     case 'SET_ERROR':
       return Object.assign({}, state, {
         error: action.errMsg,
-        waiting_search: false
       })
     case 'SET_TITLES':
       return Object.assign({}, state, {
@@ -27,10 +19,6 @@ export const stores = (state = initState, action) => {
     case 'SET_SEARCH_TITLE':
       return Object.assign({}, state, {
         search_title: action.title,
-      })
-    case 'SEARCH_START':
-      return Object.assign({}, state, {
-        waiting_search: true,
       })
     default:
       return state

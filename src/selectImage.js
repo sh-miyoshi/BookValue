@@ -5,13 +5,25 @@ import { Button } from 'react-native-elements'
 import { HyperLink } from './hyperLink'
 import { Error } from './error'
 import { Uploader } from './uploader'
-import { setImage, setError, setTitles, searchStart } from './actions'
+import { setError, setTitles } from './actions'
 import { connect } from 'react-redux'
+import Spinner from 'react-native-loading-spinner-overlay'
 
 class SelectImage extends Component {
+  state = {
+    analyzing: false
+  };
+
   render() {
     return (
       <View style={styles.containerStyle}>
+        <Spinner
+          visible={this.state.analyzing}
+          textContent={'画像を解析しています…'}
+          textStyle={styles.spinnerTextStyle}
+          overlayColor={"rgba(0, 0, 0, 0.8)"}
+        />
+
         {
           this.props.stores.error &&
           <Error message={this.props.stores.error} />
@@ -22,31 +34,15 @@ class SelectImage extends Component {
         </Text>
 
         <Button
-          title="フォルダから選択"
+          title="フォルダから選択する"
           onPress={this._pickImage}
           buttonStyle={styles.buttonStyle}
         />
 
         <Button
-          title="カメラを起動"
+          title="カメラで撮影する"
           onPress={this._takePhoto}
           buttonStyle={styles.buttonStyle}
-        />
-
-        {
-          this.props.stores.image &&
-          <Image
-            source={{ uri: this.props.stores.image }}
-            style={{ width: 200, height: 200, marginBottom: 5 }}
-          />
-        }
-
-        <Button
-          title="アップロード"
-          disabled={this.props.stores.image == null}
-          onPress={this._upload}
-          buttonStyle={styles.buttonStyle}
-          loading={this.props.stores.waiting_search}
         />
 
         <HyperLink
@@ -65,10 +61,8 @@ class SelectImage extends Component {
       quality: 0.2
     });
 
-    console.log(result);
-
     if (!result.cancelled) {
-      this.props.setImage(result.uri)
+      this._upload(result.uri)
     }
   }
 
@@ -82,19 +76,19 @@ class SelectImage extends Component {
       quality: 0.2
     });
 
-    console.log(result);
-
     if (!result.cancelled) {
-      this.props.setImage(result.uri)
+      this._upload(result.uri)
     }
   }
 
   // アップロード
-  _upload = async () => {
-    this.props.searchStart()
+  _upload = async (image) => {
+    this.setState({
+      analyzing: true
+    })
 
-    let isDebug = true // debug
-    let uploader = new Uploader(this.props.stores.image, isDebug)
+    let isDebug = false
+    let uploader = new Uploader(image, isDebug)
     await uploader.send()
     let [result, error] = uploader.getResult()
     if (error) {
@@ -102,6 +96,7 @@ class SelectImage extends Component {
       return
     }
 
+    this.state.analyzing = false
     this.props.setTitles(result.slice())
     this.props.navigation.navigate('SelectTitle')
   }
@@ -117,10 +112,8 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = {
-  setImage,
   setError,
-  setTitles,
-  searchStart
+  setTitles
 }
 
 export default connect(
@@ -149,4 +142,7 @@ const styles = {
     borderWidth: 0,
     borderRadius: 5
   },
+  spinnerTextStyle: {
+    color: '#FFF'
+  }
 }
