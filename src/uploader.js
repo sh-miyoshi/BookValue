@@ -11,6 +11,9 @@ export class Uploader {
 
   async send() {
     if (this.isDebug) {
+      const sleep = msec => new Promise(resolve => setTimeout(resolve, msec))
+      await sleep(5000) // waiting 5[sec] for debug
+
       this._debugSend()
     } else {
       let sendData = this._createSendData()
