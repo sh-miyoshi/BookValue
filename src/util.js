@@ -1,13 +1,16 @@
 export class Util {
   static getImageExt(filePath) {
     var val = filePath.split('.')
+    if (val.length <= 1) {
+      return null
+    }
     var ext = val[val.length - 1].toLowerCase()
     switch (ext) {
       case 'png':
       case 'jpeg':
       case 'bmp':
         return ext
-      case 'ico':
+      case 'icon':
         return 'x-icon'
       case 'jpg':
         return 'jpeg'
