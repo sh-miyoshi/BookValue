@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { Text, Linking } from 'react-native';
+import React, { Component } from 'react'
+import { Text, Linking } from 'react-native'
 
 export class HyperLink extends Component {
   constructor(props) {
