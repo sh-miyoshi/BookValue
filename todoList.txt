@@ -2,6 +2,7 @@ TODO LIST
 
 全体
 	READMEの追加
+	Unit Testの追加
 初期画面
 	timeoutの時間を設定
 タイトル選択画面
