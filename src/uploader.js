@@ -39,7 +39,7 @@ export class Uploader {
         return
       }
 
-      if (res.code) {
+      if (!(200 <= res.statusCode && res.statusCode < 300)) {
         this.error = res.message
         return
       }
