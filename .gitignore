@@ -14,7 +14,7 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-src/env.secret.js
+src/env.production.js
 
 tmp/
 privacy_policy/
