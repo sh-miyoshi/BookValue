@@ -3,9 +3,14 @@ TODO LIST
 全体
 	READMEの追加
 	Unit Testの追加
+		各state遷移が正しく動くか
+			状態遷移図を書く
+			(現状エラー)ネットワークエラー時の処理
 	パフォーマンス解析
+	広告追加
 初期画面
 	timeoutの時間を設定
+		https://davidwalsh.name/fetch-timeout
 	(バグ)エラー発生時にローディング画面が消えない
 	アップロードする画像サイズの変更
 タイトル選択画面
