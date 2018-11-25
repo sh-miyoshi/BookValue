@@ -8,10 +8,7 @@ export class Util {
     switch (ext) {
       case 'png':
       case 'jpeg':
-      case 'bmp':
         return ext
-      case 'icon':
-        return 'x-icon'
       case 'jpg':
         return 'jpeg'
     }
