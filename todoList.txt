@@ -5,14 +5,17 @@ TODO LIST
 	Unit Testの追加
 		各state遷移が正しく動くか
 			状態遷移図を書く
-			(現状エラー)ネットワークエラー時の処理
 	パフォーマンス解析
 	広告追加
+		import {AdMobBanner} from 'expo'
+		<AdMobBanner
+			adUnitID='ca-app-pub-3940256099942544/6300978111'
+		/>
 初期画面
 	timeoutの時間を設定
 		https://davidwalsh.name/fetch-timeout
-	(バグ)エラー発生時にローディング画面が消えない
 	アップロードする画像サイズの変更
+	(バグ)backボタンで戻るとエラーが消えない
 タイトル選択画面
 	選択肢を編集できるようにする
 結果画面
@@ -44,3 +47,5 @@ CHANGE LOG
 	Navigationの使用
 	コンポーネント分割
 	アップロードボタンをなくす
+- v0.6.0(WIP)
+	バグ修正(ネットワークエラー時の処理)
