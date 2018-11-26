@@ -60,12 +60,6 @@ class SelectTitle extends Component {
     )
   }
 
-  _test = (index) => {
-    console.log(index)
-    console.log(this.state.checked)
-    return this.state.checked[index]
-  }
-
   // 書籍の検索
   _search = () => {
     title = ""
