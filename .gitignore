@@ -18,3 +18,5 @@ src/env.production.js
 
 tmp/
 privacy_policy/
+
+dev_server/send_image.*
