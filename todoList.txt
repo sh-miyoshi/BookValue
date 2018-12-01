@@ -6,11 +6,6 @@ TODO LIST
 		各state遷移が正しく動くか
 			状態遷移図を書く
 	パフォーマンス解析
-	広告追加
-		import {AdMobBanner} from 'expo'
-		<AdMobBanner
-			adUnitID='ca-app-pub-3940256099942544/6300978111'
-		/>
 初期画面
 	timeoutの時間を設定
 		https://davidwalsh.name/fetch-timeout
@@ -49,3 +44,4 @@ CHANGE LOG
 	アップロードボタンをなくす
 - v0.6.0(WIP)
 	バグ修正(ネットワークエラー時の処理)
+	収益構造追加

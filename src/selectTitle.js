@@ -3,6 +3,8 @@ import { View, Text, FlatList, Alert } from 'react-native'
 import { CheckBox, Button, Icon } from 'react-native-elements'
 import { setError, setSearchTitle } from './actions'
 import { connect } from 'react-redux'
+import { ADMOB_ID } from './env.secret'
+import { AdMobBanner } from 'expo'
 
 class SelectTitle extends Component {
   state = {
@@ -12,50 +14,55 @@ class SelectTitle extends Component {
 
   render() {
     return (
-      <View style={styles.containerStyle}>
-        <View style={{ flexDirection: 'row', flexWrap: 'nowrap' }}>
-          <Text style={styles.textStyle}>
-            正しい本のタイトルは？
+      <View style={styles.mainStyle}>
+        <AdMobBanner
+          adUnitID={ADMOB_ID}
+        />
+        <View style={styles.containerStyle}>
+          <View style={{ flexDirection: 'row', flexWrap: 'nowrap' }}>
+            <Text style={styles.textStyle}>
+              正しい本のタイトルは？
           </Text>
 
-          <Icon
-            name='help'
-            color='#517fa4'
-            size={30}
-            containerStyle={{ marginBottom: 20 }}
-            onPress={() => Alert.alert("HELP!", "下のリストの中から正しい本のタイトルを選択してください。\nそのタイトルで評価を検索します。\nなお、複数選択した場合は選択した候補が連結されて検索されます。")}
+            <Icon
+              name='help'
+              color='#517fa4'
+              size={30}
+              containerStyle={{ marginBottom: 20 }}
+              onPress={() => Alert.alert("HELP!", "下のリストの中から正しい本のタイトルを選択してください。\nそのタイトルで評価を検索します。\nなお、複数選択した場合は選択した候補が連結されて検索されます。")}
+            />
+          </View>
+          <View style={{ height: 200 }}>
+            <FlatList
+              data={this.props.stores.titles}
+              execData={this.state.listUpdate}
+              renderItem={({ item }) =>
+                <CheckBox
+                  title={item.key}
+                  checked={this.state.checked[item.index]}
+                  onPress={() => {
+                    tmp = this.state.checked
+                    tmp[item.index] = !tmp[item.index]
+                    this.setState({
+                      checked: tmp,
+                      listUpdate: this.state.listUpdate + 1
+                    })
+                  }}
+                />
+              }
+            />
+          </View>
+          <Button
+            title="決定"
+            onPress={this._search}
+            buttonStyle={styles.buttonStyle}
+          />
+          <Button
+            title="もう一回"
+            onPress={this._retry}
+            buttonStyle={styles.buttonStyle}
           />
         </View>
-        <View style={{ height: 200 }}>
-          <FlatList
-            data={this.props.stores.titles}
-            execData={this.state.listUpdate}
-            renderItem={({ item }) =>
-              <CheckBox
-                title={item.key}
-                checked={this.state.checked[item.index]}
-                onPress={() => {
-                  tmp = this.state.checked
-                  tmp[item.index] = !tmp[item.index]
-                  this.setState({
-                    checked: tmp,
-                    listUpdate: this.state.listUpdate + 1
-                  })
-                }}
-              />
-            }
-          />
-        </View>
-        <Button
-          title="決定"
-          onPress={this._search}
-          buttonStyle={styles.buttonStyle}
-        />
-        <Button
-          title="もう一回"
-          onPress={this._retry}
-          buttonStyle={styles.buttonStyle}
-        />
       </View>
     )
   }
@@ -96,6 +103,9 @@ export default connect(
 
 // CSS
 const styles = {
+  mainStyle: {
+    flex: 1,
+  },
   containerStyle: {
     flex: 1,
     alignItems: 'center',

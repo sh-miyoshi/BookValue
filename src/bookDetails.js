@@ -4,11 +4,16 @@ import { Button } from 'react-native-elements'
 import { Util } from './util'
 import { setError } from './actions'
 import { connect } from 'react-redux'
+import { ADMOB_ID } from './env.secret'
+import { AdMobBanner } from 'expo'
 
 class BookDetails extends Component {
   render() {
     return (
       <View style={styles.webStyle}>
+        <AdMobBanner
+          adUnitID={ADMOB_ID}
+        />
         <View style={{ alignItems: 'center' }}>
           <Button
             title="もう一度検索"

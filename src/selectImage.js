@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { View, Text } from 'react-native'
-import { ImagePicker, Permissions } from 'expo'
+import { ImagePicker, Permissions, AdMobBanner } from 'expo'
 import { Button } from 'react-native-elements'
 import { HyperLink } from './hyperLink'
 import { Error } from './error'
@@ -8,6 +8,7 @@ import { Uploader } from './uploader'
 import { setError, setTitles } from './actions'
 import { connect } from 'react-redux'
 import Spinner from 'react-native-loading-spinner-overlay'
+import { ADMOB_ID } from './env.secret'
 
 class SelectImage extends Component {
   state = {
@@ -16,39 +17,44 @@ class SelectImage extends Component {
 
   render() {
     return (
-      <View style={styles.containerStyle}>
-        <Spinner
-          visible={this.state.analyzing}
-          textContent={'画像を解析しています…'}
-          textStyle={styles.spinnerTextStyle}
-          overlayColor={"rgba(0, 0, 0, 0.8)"}
+      <View style={styles.mainStyle}>
+        <AdMobBanner
+          adUnitID={ADMOB_ID}
         />
+        <View style={styles.containerStyle}>
+          <Spinner
+            visible={this.state.analyzing}
+            textContent={'画像を解析しています…'}
+            textStyle={styles.spinnerTextStyle}
+            overlayColor={"rgba(0, 0, 0, 0.8)"}
+          />
 
-        {
-          this.props.stores.error &&
-          <Error message={this.props.stores.error} />
-        }
+          {
+            this.props.stores.error &&
+            <Error message={this.props.stores.error} />
+          }
 
-        <Text style={styles.textStyle}>
-          本のタイトル画像を{"\n"}アップロードしよう
+          <Text style={styles.textStyle}>
+            本のタイトル画像を{"\n"}アップロードしよう
         </Text>
 
-        <Button
-          title="フォルダから選択する"
-          onPress={this._pickImage}
-          buttonStyle={styles.buttonStyle}
-        />
+          <Button
+            title="フォルダから選択する"
+            onPress={this._pickImage}
+            buttonStyle={styles.buttonStyle}
+          />
 
-        <Button
-          title="カメラで撮影する"
-          onPress={this._takePhoto}
-          buttonStyle={styles.buttonStyle}
-        />
+          <Button
+            title="カメラで撮影する"
+            onPress={this._takePhoto}
+            buttonStyle={styles.buttonStyle}
+          />
 
-        <HyperLink
-          url="https://sh-miyoshi.github.io/privacy-policy/"
-          title="プライバシーポリシーはこちら"
-        />
+          <HyperLink
+            url="https://sh-miyoshi.github.io/privacy-policy/"
+            title="プライバシーポリシーはこちら"
+          />
+        </View>
       </View>
     )
   }
@@ -123,6 +129,9 @@ export default connect(
 
 // CSS
 const styles = {
+  mainStyle: {
+    flex: 1,
+  },
   containerStyle: {
     flex: 1,
     alignItems: 'center',
