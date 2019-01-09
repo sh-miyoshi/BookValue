@@ -93,8 +93,8 @@ class SelectImage extends Component {
       analyzing: true
     })
 
-    let uploader = new Uploader(image)
-    await uploader.send()
+    let uploader = new Uploader()
+    await uploader.send(image)
     let [result, error] = uploader.getResult()
     if (error) {
       this.state.analyzing = false

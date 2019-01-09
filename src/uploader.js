@@ -2,14 +2,13 @@ import { OCR_SERVER_URL, SUBSCRIPTION_KEY } from "./env.secret"
 import { Util } from './util'
 
 export class Uploader {
-  constructor(imageFile) {
-    this.imageFile = imageFile
+  constructor() {
     this.result = []
     this.error = null
   }
 
-  async send() {
-    let sendData = this._createSendData()
+  async send(imageFile) {
+    let sendData = this._createSendData(imageFile)
     if (this.error) {
       return
     }
@@ -67,17 +66,17 @@ export class Uploader {
     this.result = result.slice()
   }
 
-  _createSendData() {
-    let imageType = Util.getImageExt(this.imageFile)
+  _createSendData(imageFile) {
+    let imageType = Util.getImageExt(imageFile)
     if (!imageType) {
-      this.error = "invalid image type: " + this.imageFile
+      this.error = "invalid image type: " + imageFile
       console.log(error)
       return
     }
 
     const data = new FormData();
     data.append('photo', {
-      uri: this.imageFile,
+      uri: imageFile,
       name: `photo.${imageType}`,
       type: `image/${imageType}`,
     });
