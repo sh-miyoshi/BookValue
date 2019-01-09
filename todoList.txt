@@ -10,6 +10,7 @@ TODO LIST
 	timeoutの時間を設定
 		https://davidwalsh.name/fetch-timeout
 	アップロードする画像サイズの変更
+		https://github.com/bamlab/react-native-image-resizer
 	(バグ)backボタンで戻るとエラーが消えない
 タイトル選択画面
 	選択肢を編集できるようにする
