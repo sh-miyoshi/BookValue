@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, WebView } from 'react-native'
+import { View, WebView, TextInput } from 'react-native'
 import { Button } from 'react-native-elements'
 import { Util } from './util'
 import { setError } from './actions'
@@ -8,6 +8,10 @@ import { ADMOB_ID } from './env.secret'
 import { AdMobBanner } from 'expo'
 
 class BookDetails extends Component {
+  state = {
+    searchTitle: ""
+  };
+
   render() {
     return (
       <View style={styles.webStyle}>
@@ -15,6 +19,11 @@ class BookDetails extends Component {
           adUnitID={ADMOB_ID}
         />
         <View style={{ alignItems: 'center' }}>
+          <TextInput
+            style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
+            onChangeText={(searchTitle) => this.setState({ searchTitle })}
+            value={this.state.searchTitle}
+          />
           <Button
             title="もう一度検索"
             onPress={this._retry}
