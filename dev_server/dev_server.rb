@@ -4,13 +4,20 @@ require "json"
 require "net/http"
 require "logger"
 require "benchmark"
-require 'fileutils'
+require "fileutils"
 
 set :bind, "0.0.0.0"
 logger = Logger.new(STDOUT)
 isRealSend = false
 
-
+if isRealSend
+  # set SUBSCRIPTION_KEY in os environment variable with your valid subscription key.
+  subscriptionKey = ENV["SUBSCRIPTION_KEY"]
+  if !subscriptionKey
+    STDERR.puts("please set SUBSCRIPTION_KEY in os environment variable")
+    exit 1
+  end
+end
 
 # Input: image file
 # Output: title list(JSON format)
@@ -20,13 +27,7 @@ post "/ocr" do
   image = params[:photo][:tempfile]
   FileUtils.cp(image, "send_image.jpg")
 
-  if isRealSend then
-    # set SUBSCRIPTION_KEY in os environment variable with your valid subscription key.
-    subscriptionKey = ENV['SUBSCRIPTION_KEY']
-    if !subscriptionKey then
-      STDERR.puts("please set SUBSCRIPTION_KEY in os environment variable")
-      exit 1
-    end
+  if isRealSend
     uri = "https://eastasia.api.cognitive.microsoft.com/vision/v2.0/ocr?language=ja"
     url = URI.parse(uri)
 
@@ -38,7 +39,7 @@ post "/ocr" do
     http = Net::HTTP.new(url.host, url.port)
     http.use_ssl = true
     http.verify_mode = OpenSSL::SSL::VERIFY_NONE
-  
+
     res = nil
     req_time = Benchmark.realtime do
       res = http.request(req)
@@ -47,13 +48,13 @@ post "/ocr" do
     logger.info("ocr time: " + req_time.to_s + "[sec]")
 
     if !(200 <= res.code.to_i && res.code.to_i < 300)
-      logger.warn("request OCR failed(" + res.code+"): " + res.message)
+      logger.warn("request OCR failed(" + res.code + "): " + res.message)
       exit
     end
 
     return res.body
   else
-    result = File.read('default.return.json')
+    result = File.read("default.return.json")
     return result
   end
 end
