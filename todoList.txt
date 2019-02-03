@@ -6,6 +6,7 @@ TODO LIST
 		各state遷移が正しく動くか
 			状態遷移図を書く
 	パフォーマンス解析
+	JPN/ENモード選択の追加
 初期画面
 	timeoutの時間を設定
 		https://davidwalsh.name/fetch-timeout
