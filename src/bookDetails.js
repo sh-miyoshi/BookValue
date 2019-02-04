@@ -1,17 +1,13 @@
 import React, { Component } from 'react'
-import { View, WebView, TextInput } from 'react-native'
+import { View, WebView, TextInput, Text } from 'react-native'
 import { Button } from 'react-native-elements'
 import { Util } from './util'
-import { setError } from './actions'
+import { setError, setSearchTitle } from './actions'
 import { connect } from 'react-redux'
 import { ADMOB_ID } from './env.secret'
 import { AdMobBanner } from 'expo'
 
 class BookDetails extends Component {
-  state = {
-    searchTitle: ""
-  };
-
   render() {
     return (
       <View style={styles.webStyle}>
@@ -19,13 +15,16 @@ class BookDetails extends Component {
           adUnitID={ADMOB_ID}
         />
         <View style={{ alignItems: 'center' }}>
-          <TextInput
-            style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
-            onChangeText={(searchTitle) => this.setState({ searchTitle })}
-            value={this.state.searchTitle}
-          />
+          <View style={styles.reSearchStyle}>
+            <Text style={{ textAlignVertical: 'center' }}>再検索ワード：</Text>
+            <TextInput
+              style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
+              onChangeText={(title) => this.props.setSearchTitle(title)}
+              value={this.props.stores.search_title}
+            />
+          </View>
           <Button
-            title="もう一度検索"
+            title="もう一度、画像を選択"
             onPress={this._retry}
             buttonStyle={[styles.buttonStyle, styles.retryButtonStyle]}
           />
@@ -49,6 +48,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   setError,
+  setSearchTitle
 }
 
 export default connect(
@@ -73,4 +73,8 @@ const styles = {
     marginBottom: 30,
     marginTop: 30,
   },
+  reSearchStyle: {
+    flexDirection: 'row',
+    flexWrap: 'nowrap'
+  }
 }

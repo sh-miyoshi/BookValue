@@ -22,7 +22,7 @@ class SelectTitle extends Component {
           <View style={{ flexDirection: 'row', flexWrap: 'nowrap' }}>
             <Text style={styles.textStyle}>
               正しい本のタイトルは？
-          </Text>
+            </Text>
 
             <Icon
               name='help'
