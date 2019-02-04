@@ -1,39 +1,43 @@
-require "sinatra"
-require "uri"
-require "json"
-require "net/http"
-require "logger"
-require "benchmark"
-require "fileutils"
+require 'sinatra'
+require 'uri'
+require 'json'
+require 'net/http'
+require 'logger'
+require 'benchmark'
+require 'fileutils'
 
-set :bind, "0.0.0.0"
+set :bind, '0.0.0.0'
 logger = Logger.new(STDOUT)
 isRealSend = false
 
 if isRealSend
   # set SUBSCRIPTION_KEY in os environment variable with your valid subscription key.
-  subscriptionKey = ENV["SUBSCRIPTION_KEY"]
-  if !subscriptionKey
-    STDERR.puts("please set SUBSCRIPTION_KEY in os environment variable")
+  subscriptionKey = ENV['SUBSCRIPTION_KEY']
+  unless subscriptionKey
+    STDERR.puts('please set SUBSCRIPTION_KEY in os environment variable')
     exit 1
   end
 end
 
+get '/healthz' do
+  return 'ok'
+end
+
 # Input: image file
 # Output: title list(JSON format)
-post "/ocr" do
-  logger.info("request params: " + params.to_s)
+post '/ocr' do
+  logger.info('request params: ' + params.to_s)
 
   image = params[:photo][:tempfile]
-  FileUtils.cp(image, "send_image.jpg")
+  FileUtils.cp(image, 'send_image.jpg')
 
   if isRealSend
-    uri = "https://eastasia.api.cognitive.microsoft.com/vision/v2.0/ocr?language=ja"
+    uri = 'https://eastasia.api.cognitive.microsoft.com/vision/v2.0/ocr?language=ja'
     url = URI.parse(uri)
 
     req = Net::HTTP::Post.new(url.request_uri)
-    req["Content-Type"] = "application/octet-stream"
-    req["Ocp-Apim-Subscription-Key"] = subscriptionKey
+    req['Content-Type'] = 'application/octet-stream'
+    req['Ocp-Apim-Subscription-Key'] = subscriptionKey
     req.body = image.read
 
     http = Net::HTTP.new(url.host, url.port)
@@ -45,16 +49,16 @@ post "/ocr" do
       res = http.request(req)
     end
 
-    logger.info("ocr time: " + req_time.to_s + "[sec]")
+    logger.info('ocr time: ' + req_time.to_s + '[sec]')
 
-    if !(200 <= res.code.to_i && res.code.to_i < 300)
-      logger.warn("request OCR failed(" + res.code + "): " + res.message)
+    unless res.code.to_i >= 200 && res.code.to_i < 300
+      logger.warn('request OCR failed(' + res.code + '): ' + res.message)
       exit
     end
 
     return res.body
   else
-    result = File.read("default.return.json")
+    result = File.read('default.return.json')
     return result
   end
 end
