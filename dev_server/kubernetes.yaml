@@ -1,0 +1,71 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: devserver
+spec:
+  selector:
+    istio: ingressgateway # use Istio default gateway implementation
+  servers:
+  - port:
+      number: 80
+      name: http
+      protocol: HTTP
+    hosts:
+    - "*"
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: devserver
+spec:
+  hosts:
+  - "*"
+  gateways:
+  - devserver
+  http:
+  - match:
+    - uri:
+        prefix: /healthz
+    - uri:
+        prefix: /ocr
+    route:
+    - destination:
+        port:
+          number: 4567
+        host: devserver
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: devserver
+  labels:
+    app: devserver
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: devserver
+    spec:
+      containers:
+      - name: devserver
+        image: dev_server
+        imagePullPolicy: IfNotPresent
+        ports:
+          - containerPort: 4567
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: devserver
+  labels:
+    app: devserver
+spec:
+  ports:
+  - name: http
+    port: 4567
+    targetPort: 4567
+  type: ClusterIP
+  selector:
+    app: devserver
+
