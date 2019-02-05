@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { View, Text } from 'react-native'
 import { ImagePicker, Permissions, AdMobBanner } from 'expo'
-import { Button } from 'react-native-elements'
+import { Button, ButtonGroup } from 'react-native-elements'
 import { HyperLink } from './hyperLink'
 import { Error } from './error'
 import { Uploader } from './uploader'
@@ -12,7 +12,8 @@ import { ADMOB_ID } from './env.secret'
 
 class SelectImage extends Component {
   state = {
-    analyzing: false
+    analyzing: false,
+    modeIndex: 0
   };
 
   render() {
@@ -36,7 +37,19 @@ class SelectImage extends Component {
 
           <Text style={styles.textStyle}>
             本のタイトル画像を{"\n"}アップロードしよう
-        </Text>
+          </Text>
+
+          <View style={{ flexDirection: 'row', flexWrap: 'nowrap' }}>
+            <Text style={{ textAlignVertical: 'center' }}>
+              タイトルの言語：
+            </Text>
+            <ButtonGroup
+              onPress={this._updateMode}
+              selectedIndex={this.state.modeIndex}
+              buttons={["日本語", "英語"]}
+              containerStyle={styles.modeSelectStyle}
+            />
+          </View>
 
           <Button
             title="フォルダから選択する"
@@ -93,8 +106,9 @@ class SelectImage extends Component {
       analyzing: true
     })
 
+    const langs = ['ja', 'en']
     let uploader = new Uploader()
-    await uploader.send(image)
+    await uploader.send(image, langs[this.state.modeIndex])
     let [result, error] = uploader.getResult()
     if (error) {
       this.state.analyzing = false
@@ -110,6 +124,12 @@ class SelectImage extends Component {
   _errorExit = (message) => {
     console.log(message)
     this.props.setError(message)
+  }
+
+  _updateMode = (modeIndex) => {
+    this.setState({
+      modeIndex: modeIndex
+    })
   }
 }
 
@@ -153,5 +173,11 @@ const styles = {
   },
   spinnerTextStyle: {
     color: '#FFF'
+  },
+  modeSelectStyle: {
+    borderWidth: 1,
+    backgroundColor: "rgba(0,0,0,0.4)",
+    width: 100,
+    height: 30
   }
 }

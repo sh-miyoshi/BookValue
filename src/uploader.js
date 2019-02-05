@@ -7,7 +7,7 @@ export class Uploader {
     this.error = null
   }
 
-  async send(imageFile) {
+  async send(imageFile, language) {
     let sendData = this._createSendData(imageFile)
     if (this.error) {
       return
@@ -15,7 +15,7 @@ export class Uploader {
 
     let res = null;
     try {
-      url = OCR_SERVER_URL
+      url = OCR_SERVER_URL + '?language=' + language
       let tres = await fetch(url, {
         method: 'POST',
         headers: {
