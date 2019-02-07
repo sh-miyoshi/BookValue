@@ -51,6 +51,9 @@ spec:
       - name: devserver
         image: dev_server
         imagePullPolicy: IfNotPresent
+        env:
+        - name: SUBSCRIPTION_KEY
+          value: "<your-subscription-key>"
         ports:
           - containerPort: 4567
 ---
