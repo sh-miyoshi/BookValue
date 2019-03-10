@@ -14,7 +14,8 @@ class SelectImage extends Component {
   state = {
     analyzing: false,
     modeIndex: 0,
-    height_width_rate: 0.0,
+    imageWidth: 0,
+    imageHeight: 0
   };
 
   render() {
@@ -82,7 +83,8 @@ class SelectImage extends Component {
 
     if (!result.cancelled) {
       this.setState({
-        height_width_rate: result.height / result.width
+        imageHeight: result.height,
+        imageWidth: result.width
       })
       this._upload(result.uri)
     }
@@ -99,7 +101,8 @@ class SelectImage extends Component {
 
     if (!result.cancelled) {
       this.setState({
-        height_width_rate: result.height / result.width
+        imageHeight: result.height,
+        imageWidth: result.width
       })
       this._upload(result.uri)
     }
@@ -141,22 +144,22 @@ class SelectImage extends Component {
 
   _resizeImage = async (imageFile) => {
     const base_size = 700
-    let h = 0, w = 0
-    if (this.state.height_width_rate >= 1) {
-      w = base_size * this.state.height_width_rate
-      h = base_size
-    } else {
+    let w = 0, h = 0
+    if (this.state.imageHeight > this.state.imageWidth) {
       w = base_size
-      h = base_size / this.state.height_width_rate
+      h = base_size * this.state.imageHeight / this.state.imageWidth
+    } else {
+      w = base_size * this.state.imageWidth / this.state.imageHeight
+      h = base_size
     }
 
     const result = await ImageManipulator.manipulate(
       imageFile,
       [{ resize: { width: w, height: h } }],
-      { compress: 0.2 }
+      { compress: 0.4 }
     ).catch(() => {
       console.log("failed to resize image")
-      return ""
+      return imageFile
     })
 
     return result.uri
