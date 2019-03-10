@@ -47,6 +47,7 @@ export class Uploader {
       })
     })
 
+    console.log(titles)
     this._makeResult(titles)
   }
 

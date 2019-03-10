@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { View, Text } from 'react-native'
-import { ImagePicker, Permissions, AdMobBanner } from 'expo'
+import { ImagePicker, Permissions, AdMobBanner, ImageManipulator } from 'expo'
 import { Button, ButtonGroup } from 'react-native-elements'
 import { HyperLink } from './hyperLink'
 import { Error } from './error'
@@ -13,7 +13,8 @@ import { ADMOB_ID } from './env.secret'
 class SelectImage extends Component {
   state = {
     analyzing: false,
-    modeIndex: 0
+    modeIndex: 0,
+    height_width_rate: 0.0,
   };
 
   render() {
@@ -76,11 +77,13 @@ class SelectImage extends Component {
   _pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       allowsEditing: false,
-      aspect: [16, 9],
-      quality: 0.2
+      aspect: [16, 9]
     });
 
     if (!result.cancelled) {
+      this.setState({
+        height_width_rate: result.height / result.width
+      })
       this._upload(result.uri)
     }
   }
@@ -92,10 +95,12 @@ class SelectImage extends Component {
 
     let result = await ImagePicker.launchCameraAsync({
       allowsEditing: false,
-      quality: 0.2
     });
 
     if (!result.cancelled) {
+      this.setState({
+        height_width_rate: result.height / result.width
+      })
       this._upload(result.uri)
     }
   }
@@ -108,7 +113,9 @@ class SelectImage extends Component {
 
     const langs = ['ja', 'en']
     let uploader = new Uploader()
-    await uploader.send(image, langs[this.state.modeIndex])
+    let resizedImageFile = await this._resizeImage(image)
+    console.log("resizedImageFile: " + resizedImageFile)
+    await uploader.send(resizedImageFile, langs[this.state.modeIndex])
     let [result, error] = uploader.getResult()
     if (error) {
       this.state.analyzing = false
@@ -130,6 +137,29 @@ class SelectImage extends Component {
     this.setState({
       modeIndex: modeIndex
     })
+  }
+
+  _resizeImage = async (imageFile) => {
+    const base_size = 700
+    let h = 0, w = 0
+    if (this.state.height_width_rate >= 1) {
+      w = base_size * this.state.height_width_rate
+      h = base_size
+    } else {
+      w = base_size
+      h = base_size / this.state.height_width_rate
+    }
+
+    const result = await ImageManipulator.manipulate(
+      imageFile,
+      [{ resize: { width: w, height: h } }],
+      { compress: 0.2 }
+    ).catch(() => {
+      console.log("failed to resize image")
+      return ""
+    })
+
+    return result.uri
   }
 }
 
