@@ -6,11 +6,10 @@ TODO LIST
 		各state遷移が正しく動くか
 			状態遷移図を書く
 	パフォーマンス解析
+	splash-screenの追加
 初期画面
 	timeoutの時間を設定
 		https://davidwalsh.name/fetch-timeout
-	アップロードする画像サイズの変更
-		https://github.com/bamlab/react-native-image-resizer
 	(バグ)backボタンで戻るとエラーが消えない
 タイトル選択画面
 	選択肢を編集できるようにする
@@ -47,3 +46,5 @@ CHANGE LOG
 	日本語/英語切り替え機能の追加
 - v0.7.1
 	ポリシーの見直し
+- v0.8.0
+	アップロードする画像のサイズを縮小(帯域の節約)
