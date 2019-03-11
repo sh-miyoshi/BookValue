@@ -9,13 +9,13 @@ describe("test getImageExt method", () => {
       expect(Util.getImageExt("test.jpeg")).toBe("jpeg")
     });
     it('test bmp image', () => {
-      expect(Util.getImageExt("test.bmp")).toBe("bmp")
+      expect(Util.getImageExt("test.bmp")).toBe(null)
     });
     it('test jpg image', () => {
       expect(Util.getImageExt("test.jpg")).toBe("jpeg")
     });
     it('test icon image', () => {
-      expect(Util.getImageExt("test.icon")).toBe("x-icon")
+      expect(Util.getImageExt("test.icon")).toBe(null)
     });
     it('test multi dots in file name', () => {
       expect(Util.getImageExt("test.ex.png")).toBe("png")
