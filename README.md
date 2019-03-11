@@ -1,5 +1,7 @@
 # BookValue
 
+[![CircleCI](https://circleci.com/gh/sh-miyoshi/BookValue.svg?style=svg)](https://circleci.com/gh/sh-miyoshi/BookValue)
+
 ## 概要
 
 Android Storeにて公開している[BookValueアプリ](https://play.google.com/store/apps/details?id=com.smiyoshi.bookvalue)のソースコードです。  
