@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { RootStack } from './src/main'
+import { AppContainer } from './src/main'
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import rootReducer from './src/reducer'
@@ -10,7 +10,11 @@ export default class App extends Component {
   render() {
     return (
       <Provider store={store}>
-        <RootStack />
+        <AppContainer
+          ref={nav => {
+            this.navigator = nav;
+          }}
+        />
       </Provider>
     );
   }

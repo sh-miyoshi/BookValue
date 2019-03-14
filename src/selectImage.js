@@ -153,7 +153,7 @@ class SelectImage extends Component {
       h = base_size
     }
 
-    const result = await ImageManipulator.manipulate(
+    const result = await ImageManipulator.manipulateAsync(
       imageFile,
       [{ resize: { width: w, height: h } }],
       { compress: 0.4 }

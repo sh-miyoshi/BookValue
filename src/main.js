@@ -1,9 +1,9 @@
-import { createStackNavigator } from 'react-navigation'
+import { createStackNavigator, createAppContainer } from 'react-navigation'
 import SelectImage from './selectImage'
 import SelectTitle from './selectTitle'
 import BookDetails from './bookDetails'
 
-export const RootStack = createStackNavigator(
+const RootStack = createStackNavigator(
   {
     SelectImage: {
       screen: SelectImage,
@@ -19,3 +19,5 @@ export const RootStack = createStackNavigator(
     initialRouteName: 'SelectImage',
   }
 )
+
+export const AppContainer = createAppContainer(RootStack)
