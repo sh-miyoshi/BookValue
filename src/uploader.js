@@ -1,5 +1,6 @@
 import { OCR_SERVER_URL, SUBSCRIPTION_KEY } from "./env.secret"
 import { Util } from './util'
+import timeoutFetch from './fetchWithTimeout'
 
 export class Uploader {
   constructor() {
@@ -16,7 +17,8 @@ export class Uploader {
     let res = null;
     try {
       url = OCR_SERVER_URL + '?language=' + language
-      let tres = await fetch(url, {
+      // timeout 10[sec]
+      let tres = await timeoutFetch(url, {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -24,7 +26,7 @@ export class Uploader {
           'Ocp-Apim-Subscription-Key': SUBSCRIPTION_KEY
         },
         body: sendData
-      })
+      }, 10 * 1000)
       res = await tres.json();
     } catch (error) {
       this.error = error.toString()
