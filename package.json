@@ -19,9 +19,9 @@
   "dependencies": {
     "exp": "^57.2.1",
     "expo": "^32.0.0",
+    "global": "^4.3.2",
     "react": "16.5.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-32.0.0.tar.gz",
-    "global": "^4.3.2",
     "react-native-elements": "^1.1.0",
     "react-native-loading-spinner-overlay": "^1.0.1",
     "react-navigation": "^3.3.2",
