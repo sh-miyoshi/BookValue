@@ -7,10 +7,10 @@
       "resizeMode": "contain",
       "backgroundColor": "#3f48cc"
     },
-    "sdkVersion": "32.0.0",
+    "sdkVersion": "33.0.0",
     "android": {
       "package": "com.smiyoshi.bookvalue",
-      "versionCode": 100,
+      "versionCode": 101,
       "permissions": []
     }
   }
