@@ -29,11 +29,13 @@ export class Uploader {
       }, 10 * 1000)
       res = await tres.json();
     } catch (error) {
+      console.log("Failed to send image: %o", error)
       this.error = error.toString()
       return
     }
 
     if (!res.regions) {
+      console.log("Unexpected result got: %o", res)
       this.error = res.message
       return
     }
