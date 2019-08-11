@@ -49,3 +49,6 @@ CHANGE LOG
 - v0.9.0
 	timeoutの追加
 	splash-screenの追加
+- v0.10.0
+	使用しているライブラリのアップデート
+	本検索後のURLをコピーできるようにした

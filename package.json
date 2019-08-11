@@ -1,6 +1,6 @@
 {
   "name": "bookvalue",
-  "version": "0.9.0",
+  "version": "0.10.0",
   "private": true,
   "devDependencies": {
     "babel-preset-expo": "^5.0.0",
