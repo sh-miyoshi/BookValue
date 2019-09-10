@@ -10,8 +10,15 @@
     "sdkVersion": "33.0.0",
     "android": {
       "package": "com.smiyoshi.bookvalue",
-      "versionCode": 101,
+      "versionCode": 102,
       "permissions": []
-    }
+    },
+    "slug": "bookvalue",
+    "version": "0.10.2",
+    "platforms": [
+      "android",
+      "ios"
+    ],
+    "description": ""
   }
 }
