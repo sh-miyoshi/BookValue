@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { View, Text } from 'react-native'
-import { ImagePicker, Permissions, AdMobBanner, ImageManipulator } from 'expo'
+import { AdMobBanner, ImageManipulator } from 'expo'
 import { Button, ButtonGroup } from 'react-native-elements'
 import { HyperLink } from './hyperLink'
 import { Error } from './error'
@@ -9,6 +9,8 @@ import { setError, setTitles } from './actions'
 import { connect } from 'react-redux'
 import Spinner from 'react-native-loading-spinner-overlay'
 import { ADMOB_ID } from './env.secret'
+import * as ImagePicker from 'expo-image-picker'
+import * as Permissions from 'expo-permissions'
 
 class SelectImage extends Component {
   state = {
@@ -92,8 +94,18 @@ class SelectImage extends Component {
 
   // カメラを起動
   _takePhoto = async () => {
-    await Permissions.askAsync(Permissions.CAMERA);
-    await Permissions.askAsync(Permissions.CAMERA_ROLL);
+    let results = await Promise.all([
+      await Permissions.askAsync(Permissions.CAMERA),
+      await Permissions.askAsync(Permissions.CAMERA_ROLL)
+    ])
+
+    for (let r of results) {
+      if (r.status !== 'granted') {
+        this.state.analyzing = false
+        this._errorExit('カメラの使用が許可されていません')
+        return
+      }
+    }
 
     let result = await ImagePicker.launchCameraAsync({
       allowsEditing: false,
