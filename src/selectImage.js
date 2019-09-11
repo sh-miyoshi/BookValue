@@ -76,6 +76,19 @@ class SelectImage extends Component {
     )
   }
 
+  async componentWillMount() {
+    let res = await Permissions.askAsync(Permissions.CAMERA_ROLL)
+    if (res.status !== 'granted') {
+      this._errorExit('カメラの使用を許可してください')
+      return
+    }
+    res = await Permissions.askAsync(Permissions.CAMERA)
+    if (res.status !== 'granted') {
+      this._errorExit('カメラの使用を許可してください')
+      return
+    }
+  }
+
   // フォルダから選択
   _pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -94,19 +107,6 @@ class SelectImage extends Component {
 
   // カメラを起動
   _takePhoto = async () => {
-    let results = await Promise.all([
-      await Permissions.askAsync(Permissions.CAMERA),
-      await Permissions.askAsync(Permissions.CAMERA_ROLL)
-    ])
-
-    for (let r of results) {
-      if (r.status !== 'granted') {
-        this.state.analyzing = false
-        this._errorExit('カメラの使用が許可されていません')
-        return
-      }
-    }
-
     let result = await ImagePicker.launchCameraAsync({
       allowsEditing: false,
     });
