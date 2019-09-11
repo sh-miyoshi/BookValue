@@ -10,14 +10,13 @@
     "sdkVersion": "33.0.0",
     "android": {
       "package": "com.smiyoshi.bookvalue",
-      "versionCode": 103,
+      "versionCode": 104,
       "permissions": [
-        "CAMERA",
-        "CAMERA_ROLL"
+        "CAMERA"
       ]
     },
     "slug": "bookvalue",
-    "version": "0.10.3",
+    "version": "0.10.4",
     "platforms": [
       "android",
       "ios"
