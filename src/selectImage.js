@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { View, Text } from 'react-native'
-import { AdMobBanner, ImageManipulator } from 'expo'
 import { Button, ButtonGroup } from 'react-native-elements'
 import { HyperLink } from './hyperLink'
 import { Error } from './error'
@@ -11,6 +10,8 @@ import Spinner from 'react-native-loading-spinner-overlay'
 import { ADMOB_ID } from './env.secret'
 import * as ImagePicker from 'expo-image-picker'
 import * as Permissions from 'expo-permissions'
+import { AdMobBanner } from 'expo-ads-admob'
+import * as ImageManipulator from 'expo-image-manipulator';
 
 class SelectImage extends Component {
   state = {

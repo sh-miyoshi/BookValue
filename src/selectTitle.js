@@ -4,7 +4,7 @@ import { CheckBox, Button, Icon } from 'react-native-elements'
 import { setError, setSearchTitle } from './actions'
 import { connect } from 'react-redux'
 import { ADMOB_ID } from './env.secret'
-import { AdMobBanner } from 'expo'
+import { AdMobBanner } from 'expo-ads-admob'
 
 class SelectTitle extends Component {
   state = {
