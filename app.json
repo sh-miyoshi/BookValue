@@ -8,7 +8,7 @@
       "ios",
       "android"
     ],
-    "version": "0.11.0",
+    "version": "0.11.4",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -27,9 +27,11 @@
     },
     "android": {
       "package": "com.smiyoshi.bookvalue",
-      "versionCode": 111,
+      "versionCode": 114,
       "permissions": [
-        "CAMERA"
+        "CAMERA",
+        "READ_EXTERNAL_STORAGE",
+        "WRITE_EXTERNAL_STORAGE"
       ]
     }
   }
