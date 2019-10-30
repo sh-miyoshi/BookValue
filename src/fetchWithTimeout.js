@@ -1,4 +1,4 @@
-const DEFAULT_TIMEOUT = 5000 // default timeout is 5[sec]
+const DEFAULT_TIMEOUT = 10000 // default timeout is 10[sec]
 
 export default function (url, options, timeout = DEFAULT_TIMEOUT) {
   return Promise.race([
