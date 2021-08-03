@@ -21,9 +21,6 @@ class BookDetails extends Component {
   render() {
     return (
       <View style={styles.webStyle}>
-        <AdMobBanner
-          adUnitID={ADMOB_ID}
-        />
         <View style={{ alignItems: 'center' }}>
           <View style={styles.reSearchStyle}>
             <Text style={{ textAlignVertical: 'center' }}>再検索ワード：</Text>

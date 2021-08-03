@@ -6,16 +6,14 @@ import rootReducer from './src/reducer'
 
 const store = createStore(rootReducer)
 
-export default class App extends Component {
-  render() {
-    return (
-      <Provider store={store}>
-        <AppContainer
-          ref={nav => {
-            this.navigator = nav;
-          }}
-        />
-      </Provider>
-    );
-  }
+export default function App() {
+  return (
+    <Provider store={store}>
+      <AppContainer
+        ref={nav => {
+          this.navigator = nav;
+        }}
+      />
+    </Provider>
+  )
 }
